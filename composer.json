@@ -1,5 +1,5 @@
 {
-    "name": "rossedman/teamwork",
+    "name": "disruptiveadvertising/teamwork",
     "description": "PHP wrapper for the Teamwork project management API",
     "keywords": ["teamwork", "api", "laravel", "project management"],
     "license": "MIT",
@@ -7,10 +7,14 @@
         {
             "name": "Ross Edman",
             "email": "ross.edman@gmail.com"
+        },
+        {
+            "name": "Disruptive Developers and Chris (not just any Chris)",
+            "email": "mkim@disruptiveadvertising.com"
         }
     ],
     "require": {
-        "php": ">=5.4.0",
+        "php": ">=7.0.0",
         "guzzlehttp/guzzle": "~5.2"
     },
     "require-dev": {
