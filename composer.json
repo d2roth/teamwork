@@ -15,7 +15,8 @@
     ],
     "require": {
         "php": ">=7.2.22",
-        "guzzlehttp/guzzle": "*"
+        "guzzlehttp/guzzle": "*",
+        "zendframework/zend-httphandlerrunner": "*"
     },
     "require-dev": {
         "phpunit/phpunit": "*",
