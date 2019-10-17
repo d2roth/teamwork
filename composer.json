@@ -5,13 +5,14 @@
     "license": "MIT",
     "authors": [
         {
-            "name": "Ross Edman",
-            "email": "ross.edman@gmail.com"
-        },
-        {
             "name": "Disruptive Developers",
             "email": "chris@disruptiveadvertising.com"
+        },
+        {
+            "name": "Ross Edman",
+            "email": "ross.edman@gmail.com"
         }
+
     ],
     "require": {
         "php": ">=7.2.22",
