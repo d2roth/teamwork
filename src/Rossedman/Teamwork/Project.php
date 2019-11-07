@@ -47,6 +47,40 @@ class Project extends AbstractObject {
     }
 
     /**
+     * Add People To a Project
+     * POST /projects/{project_id}/people.json
+     *
+     * @return mixed
+     */
+    public function addPerson($user_id = null, $args = null)
+    {
+        // get all people on the project, we only add if they are not already on the project
+        $people = $this->client->get("$this->endpoint/$this->id/people")->response();
+        $people_on_project = [];
+        foreach($people->people as $person){
+            $people_on_project[] = $person->id;
+        }
+        if(!is_null($user_id) && !in_array($user_id, $people_on_project))
+            return $this->client->post("$this->endpoint/$this->id/people/$user_id", $args)->response();
+        else
+            return false;
+    }
+
+    /**
+     * Add People Permissions To a Project
+     * POST /projects/{project_id}/people.json
+     *
+     * @return mixed
+     */
+    public function updatePersonPermissions($user_id = null, $args = [])
+    {
+        if(!is_null($user_id))
+            return $this->client->put("$this->endpoint/$this->id/people/$user_id", $args)->response();
+        else
+            return false;
+    }
+
+    /**
      * Get Starred Projects
      * GET /projects/starred.json
      *

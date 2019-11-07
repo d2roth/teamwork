@@ -42,6 +42,17 @@ abstract class AbstractObject {
     }
 
     /**
+     * Set ID
+     *
+     * set ID for when you are using the singleton
+     *
+     * @return id
+     */
+    public function setID($id){
+        return $this->id = $id;
+    }
+
+    /**
      * Are Arguments Valid
      *
      * @param array    $args

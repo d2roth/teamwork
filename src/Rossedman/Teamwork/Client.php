@@ -1,6 +1,7 @@
 <?php  namespace Rossedman\Teamwork;
 
 use GuzzleHttp\Client as Guzzle;
+use GuzzleHttp\Psr7\Request;
 use Rossedman\Teamwork\Contracts\RequestableInterface;
 
 class Client implements RequestableInterface {
@@ -127,21 +128,21 @@ class Client implements RequestableInterface {
      *
      * @return $this
      */
-    public function buildRequest($endpoint, $action, $params = [], $query = null)
+    public function buildRequest($endpoint, $action, $params = null, $query = null)
     {
-        if (count($params) > 0)
+        if (!is_null($params) && gettype($params) == 'array')
         {
             $params = json_encode($params);
         }
+        else
+            $params = '';
 
-        $this->request = $this->client->createRequest($action,
-            $this->buildUrl($endpoint), ['auth' => [$this->key, 'X'], 'body' => $params]
+        $this->request = new Request(
+            $action,
+            $this->buildUrl($endpoint, $query),
+            ['Authorization' => "Basic " . base64_encode($this->key . ":xxxx")],
+            $params
         );
-
-        if ($query != null)
-        {
-            $this->buildQuery($query);
-        }
 
         return $this;
     }
@@ -150,13 +151,24 @@ class Client implements RequestableInterface {
      * Response
      *
      * this send the request from the built response and
-     * returns the response as a JSON payload
+     * returns the response payload as a PHP array
      */
-    public function response()
+    public function response($json = true)
     {
         $this->response = $this->client->send($this->request);
+        return json_decode($this->response->getBody()->getContents());
+    }
 
-        return $this->response->json();
+    /**
+     * Response As JSON
+     *
+     * this send the request from the built response and
+     * returns the response as a JSON payload
+     */
+    public function responseAsJson()
+    {
+        $this->response = $this->client->send($this->request);
+        return $this->response->getBody()->getContents();
     }
 
     /**
@@ -170,7 +182,7 @@ class Client implements RequestableInterface {
      *
      * @return string
      */
-    public function buildUrl($endpoint)
+    public function buildUrl($endpoint, $query = [])
     {
         if (filter_var($endpoint, FILTER_VALIDATE_URL))
         {
@@ -182,7 +194,13 @@ class Client implements RequestableInterface {
             $this->url = $this->url . '/';
         }
 
-        return $this->url . $endpoint . '.' . $this->dataFormat;
+        $query_string = '';
+        if(!is_null($query) && count($query) > 0)
+        {
+            $query_string = '?' . http_build_query($query);
+        }
+
+        return $this->url . $endpoint . '.' . $this->dataFormat . $query_string;
     }
 
     /**
@@ -196,8 +214,7 @@ class Client implements RequestableInterface {
      */
     public function buildQuery($query)
     {
-        $q = $this->request->getQuery();
-
+        $q = $this->request->getUri()->getQuery();
         foreach ($query as $key => $value)
         {
             $q[$key] = $value;
