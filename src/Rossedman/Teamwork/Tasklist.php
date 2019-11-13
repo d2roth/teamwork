@@ -78,6 +78,8 @@ class Tasklist extends AbstractObject {
      */
     public function createTask($data)
     {
-        return $this->client->post("tasklists/$this->id/tasks", ['todo-item' => $data])->response();
+        $task = $this->client->post("tasklists/$this->id/tasks", ['todo-item' => $data])->response();
+        $task->request = (object) $data;
+        return $task;
     }
 }
