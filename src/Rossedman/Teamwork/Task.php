@@ -69,4 +69,15 @@ class Task extends AbstractObject {
     {
         return $this->client->put("$this->endpoint/$this->id.json", ['todo-item' => $args])->response();
     }
+    
+    /**
+     * Get A Task
+     * GET tasks/{id}.json
+     *
+     * @return mixed
+     */
+    public function get()
+    {
+        return $this->client->get("$this->endpoint/$this->id.json")->response();
+    }
 }
