@@ -70,7 +70,7 @@ class Client implements RequestableInterface {
      */
     public function get($endpoint, $query = null)
     {
-        $this->buildRequest($endpoint, 'GET', [], $query);
+        $this->buildRequest($endpoint, 'GET', $query, $query);
 
         return $this;
     }
