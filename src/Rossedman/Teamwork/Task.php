@@ -67,7 +67,7 @@ class Task extends AbstractObject {
      */
     public function edit($args)
     {
-        return $this->client->put("$this->endpoint/$this->id.json", ['todo-item' => $args])->response();
+        return $this->client->put("$this->endpoint/$this->id", ['todo-item' => $args])->response();
     }
     
     /**
@@ -78,6 +78,6 @@ class Task extends AbstractObject {
      */
     public function get()
     {
-        return $this->client->get("$this->endpoint/$this->id.json")->response();
+        return $this->client->get("$this->endpoint/$this->id")->response();
     }
 }
