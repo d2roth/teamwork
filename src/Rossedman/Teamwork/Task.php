@@ -80,4 +80,15 @@ class Task extends AbstractObject {
     {
         return $this->client->get("$this->endpoint/$this->id")->response();
     }
+    
+    /**
+     * Add files to a task
+     * POST tasks/{id}/files.json
+     *
+     * @return mixed
+     */
+    public function attachFiles($args)
+    {
+        return $this->client->put("$this->endpoint/$this->id/files", ['task' => $args])->response();
+    }
 }
