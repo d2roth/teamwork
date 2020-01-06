@@ -76,9 +76,9 @@ class Task extends AbstractObject {
      *
      * @return mixed
      */
-    public function get()
+    public function get($args)
     {
-        return $this->client->get("$this->endpoint/$this->id")->response();
+        return $this->client->get("$this->endpoint/$this->id", $args)->response();
     }
     
     /**
