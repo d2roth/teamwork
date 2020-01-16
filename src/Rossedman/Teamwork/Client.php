@@ -230,4 +230,8 @@ class Client implements RequestableInterface {
     {
         return $this->request;
     }
+
+    public function getHeadersFromResponse(){
+        return $this->response->getHeaders();
+    }
 }

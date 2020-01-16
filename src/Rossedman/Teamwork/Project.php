@@ -218,5 +218,21 @@ class Project extends AbstractObject {
         return $this->client->get("$this->endpoint/$this->id/emailaddress", $args)->response();
     }
 
+    /**
+     * Get All projects
+     * GET /projects.json
+     *
+     * @param null $args
+     *
+     * @return mixed
+     */
+    public function all($args = null)
+    {
+        $this->areArgumentsValid($args, ['status', 'updatedAfterDate', 'orderby', 'createdAfterDate', 'createdAfterTime',
+            'catId', 'includePeople', 'includeProjectOwner', 'page', 'pageSize',  'orderMode', 'onlyStarredProjects',
+            'companyId', 'projectOwnerIds', 'searchTerm', 'getDeleted', 'includeTags', 'userId', 'updatedAfterDateTime']);
+
+        return $this->client->get($this->endpoint, $args)->response();
+    }
 
 }

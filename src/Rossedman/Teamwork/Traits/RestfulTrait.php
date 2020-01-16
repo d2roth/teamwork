@@ -42,5 +42,8 @@ trait RestfulTrait {
         return $this->client->delete("$this->endpoint/$this->id")->response();
     }
 
+    public function responseHeaders(){
+        return $this->client->getHeadersFromResponse();
+    }
 
 }
