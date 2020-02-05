@@ -65,6 +65,13 @@ class Project extends AbstractObject {
         else
             return false;
     }
+    
+    public function removePeople($user_ids = '')
+    {
+        return $this->client->post("$this->endpoint/$this->id/people.json", [
+            'remove' => $user_ids
+        ])->response();
+    }
 
     /**
      * Add People Permissions To a Project
