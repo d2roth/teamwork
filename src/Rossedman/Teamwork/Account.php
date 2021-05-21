@@ -1,4 +1,4 @@
-<?php  namespace Rossedman\Teamwork; 
+<?php  namespace Rossedman\Teamwork;
 
 class Account extends AbstractObject {
 
@@ -9,9 +9,9 @@ class Account extends AbstractObject {
      * @link http://developer.teamwork.com/account
      * @return mixed
      */
-    public function details()
+    public function details($args = null)
     {
-        return $this->client->get('account')->response();
+        return $this->client->get('account', $args)->response();
     }
 
     /**
@@ -21,9 +21,9 @@ class Account extends AbstractObject {
      * @link http://developer.teamwork.com/account
      * @return mixed
      */
-    public function authenticate()
+    public function authenticate($args = null)
     {
-        return $this->client->get('authenticate')->response();
+        return $this->client->get('authenticate', $args)->response();
     }
 
 }

@@ -18,11 +18,11 @@ class Company extends AbstractObject {
      *
      * @return mixed
      */
-    public function people()
+    public function people($args = null)
     {
-        return $this->client->get("$this->endpoint/$this->id/people")->response();
+        return $this->client->get("$this->endpoint/$this->id/people", $args)->response();
     }
-    
+
     /**
      * Get Projects Associated With Company
      * GET /companies/{company_id}/projects.json
@@ -31,8 +31,8 @@ class Company extends AbstractObject {
      *
      * @return mixed
      */
-    public function projects()
+    public function projects($args = null)
     {
-        return $this->client->get("$this->endpoint/$this->id/projects")->response();
-    }    
+        return $this->client->get("$this->endpoint/$this->id/projects", $args)->response();
+    }
 }

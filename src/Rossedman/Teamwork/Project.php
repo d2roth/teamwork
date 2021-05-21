@@ -30,9 +30,9 @@ class Project extends AbstractObject {
      *
      * @retun mixed
      */
-    public function companies()
+    public function companies($args = null)
     {
-        return $this->client->get("$this->endpoint/$this->id/companies")->response();
+        return $this->client->get("$this->endpoint/$this->id/companies", $args)->response();
     }
 
     /**
@@ -41,9 +41,9 @@ class Project extends AbstractObject {
      *
      * @return mixed
      */
-    public function people()
+    public function people($args = null)
     {
-        return $this->client->get("$this->endpoint/$this->id/people")->response();
+        return $this->client->get("$this->endpoint/$this->id/people", $args)->response();
     }
 
     /**
@@ -93,9 +93,9 @@ class Project extends AbstractObject {
      *
      * @return mixed
      */
-    public function starred()
+    public function starred($args = null)
     {
-        return $this->client->get("$this->endpoint/starred")->response();
+        return $this->client->get("$this->endpoint/starred", $args)->response();
     }
 
     /**
@@ -126,9 +126,9 @@ class Project extends AbstractObject {
      *
      * @return mixed
      */
-    public function links()
+    public function links($args = null)
     {
-        return $this->client->get("$this->endpoint/$this->id/links")->response();
+        return $this->client->get("$this->endpoint/$this->id/links", $args)->response();
     }
 
     /**
@@ -137,9 +137,9 @@ class Project extends AbstractObject {
      *
      * @return mixed
      */
-    public function timeTotal()
+    public function timeTotal($args = null)
     {
-        return $this->client->get("$this->endpoint/$this->id/time/total")->response();
+        return $this->client->get("$this->endpoint/$this->id/time/total", $args)->response();
     }
 
     /**
@@ -148,9 +148,9 @@ class Project extends AbstractObject {
      *
      * @return mixed
      */
-    public function latestMessages()
+    public function latestMessages($args = null)
     {
-        return $this->client->get("$this->endpoint/$this->id/posts")->response();
+        return $this->client->get("$this->endpoint/$this->id/posts", $args)->response();
     }
 
     /**
@@ -159,9 +159,9 @@ class Project extends AbstractObject {
      *
      * @return mixed
      */
-    public function archivedMessages()
+    public function archivedMessages($args = null)
     {
-        return $this->client->get("$this->endpoint/$this->id/posts/archive")->response();
+        return $this->client->get("$this->endpoint/$this->id/posts/archive", $args)->response();
     }
 
     /**
@@ -187,7 +187,7 @@ class Project extends AbstractObject {
      *
      * @return mixed
      */
-    public function createMilestone($args) {
+    public function createMilestone($args = []) {
         return $this->client->post("$this->endpoint/$this->id/milestones", ['milestone' => $args])->response();
     }
 
@@ -199,7 +199,7 @@ class Project extends AbstractObject {
      *
      * @return mixed
      */
-    public function createTasklist($args) {
+    public function createTasklist($args = []) {
         return $this->client->post("$this->endpoint/$this->id/tasklists", ['todo-list' => $args])->response();
     }
 
