@@ -43,7 +43,21 @@ class Project extends AbstractObject {
      */
     public function people($args = null)
     {
-        return $this->client->get("$this->endpoint/$this->id/people", $args)->response();
+        $pageSize = $args != null && isset($args['pageSize']) ? $args['pageSize'] : 100;
+        $page = 1;
+        $response = [];
+        do {
+            $people = $this->client->get("$this->endpoint/$this->id/people", [
+                'page' => $page,
+                'pageSize' => $pageSize
+            ])->response();
+            foreach($people as $person) {
+                $response[] = $person;
+            }
+            $page++;
+        }
+        while(count($people) == $pageSize);
+        return $response;
     }
 
     /**
@@ -55,7 +69,7 @@ class Project extends AbstractObject {
     public function addPerson($user_id = null, $args = null)
     {
         // get all people on the project, we only add if they are not already on the project
-        $people = $this->client->get("$this->endpoint/$this->id/people")->response();
+        $people = $this->people(['pageSize' => 500]);
         $people_on_project = [];
         foreach($people->people as $person){
             $people_on_project[] = $person->id;
@@ -65,7 +79,7 @@ class Project extends AbstractObject {
         else
             return false;
     }
-    
+
     public function removePeople($user_ids = '')
     {
         return $this->client->post("$this->endpoint/$this->id/people.json", [

@@ -26,6 +26,13 @@ class Task extends AbstractObject {
         return $this->client->get($this->endpoint, $args)->response();
     }
 
+    public function allV2($args = null)
+    {
+        $this->areArgumentsValid($args, ['filter', 'page', 'pageSize', 'startdate', 'enddate', 'updatedAfterDate', 'completedAfterDate', 'completedBeforeDate', 'showDeleted', 'includeCompletedTasks', 'includeCompletedSubtasks', 'creator-ids', 'include', 'responsible-party-ids', 'sort', 'getSubTasks', 'nestSubTasks', 'getFiles', 'dataSet', 'includeToday', 'ignore-start-date', 'includeCustomFields']);
+
+        return $this->client->get('projects/api/v2/tasks', $args)->response();
+    }
+
     /**
      * Complete A Task
      * PUT tasks/{id}/complete.json
@@ -69,7 +76,7 @@ class Task extends AbstractObject {
     {
         return $this->client->put("$this->endpoint/$this->id", ['todo-item' => $args])->response();
     }
-    
+
     /**
      * Get A Task
      * GET tasks/{id}.json
@@ -80,7 +87,7 @@ class Task extends AbstractObject {
     {
         return $this->client->get("$this->endpoint/$this->id", $args)->response();
     }
-    
+
     /**
      * Add files to a task
      * POST tasks/{id}/files.json
