@@ -256,4 +256,13 @@ class Project extends AbstractObject {
         return $this->client->get($this->endpoint, $args)->response();
     }
 
+    public function tag($projectId, $tagName)
+    {
+        return $this->client->put("$this->endpoint/$projectId/tags", [
+            'tags' => [
+                'content' => $tagName
+            ]
+        ])->response();
+    }
+
 }
