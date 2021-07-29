@@ -13,9 +13,9 @@ trait RestfulTrait {
     /**
      * @return mixed
      */
-    public function find()
+    public function find(array $data = [])
     {
-        return $this->client->get("$this->endpoint/$this->id")->response();
+        return $this->client->get("$this->endpoint/$this->id", $data)->response();
     }
 
     /**
